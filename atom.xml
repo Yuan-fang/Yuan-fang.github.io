@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title><![CDATA[Notebook]]></title>
-  
+  <title><![CDATA[Turing's apple]]></title>
+  <subtitle><![CDATA[Zhao's personal blog]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
   <updated>2015-09-27T16:45:26.690Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
-    <name><![CDATA[Yuan-fang Zhao]]></name>
+    <name><![CDATA[Yuan-Fang Zhao]]></name>
     
   </author>
   
