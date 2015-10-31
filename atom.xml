@@ -3,9 +3,9 @@
   <title><![CDATA[Fang's]]></title>
   
   <link href="/atom.xml" rel="self"/>
-  <link href="http://yoursite.com/"/>
+  <link href="http://www.zhaoyf.net/"/>
   <updated>2015-10-31T12:16:40.520Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>http://www.zhaoyf.net/</id>
   
   <author>
     <name><![CDATA[Yuanfang Zhao]]></name>
@@ -16,8 +16,8 @@
   
   <entry>
     <title><![CDATA[this is another test]]></title>
-    <link href="http://yoursite.com/2015/10/31/this-is-another-test/"/>
-    <id>http://yoursite.com/2015/10/31/this-is-another-test/</id>
+    <link href="http://www.zhaoyf.net/2015/10/31/this-is-another-test/"/>
+    <id>http://www.zhaoyf.net/2015/10/31/this-is-another-test/</id>
     <published>2015-10-31T12:16:40.000Z</published>
     <updated>2015-10-31T12:16:40.520Z</updated>
     <content type="html"></content>
