@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.zhaoyf.net/"/>
-  <updated>2015-10-31T22:27:37.905Z</updated>
+  <updated>2015-10-31T23:53:36.002Z</updated>
   <id>http://www.zhaoyf.net/</id>
   
   <author>
@@ -13,6 +13,21 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[试试中中文]]></title>
+    <link href="http://www.zhaoyf.net/2015/11/01/%E8%AF%95%E8%AF%95%E4%B8%AD%E4%B8%AD%E6%96%87/"/>
+    <id>http://www.zhaoyf.net/2015/11/01/试试中中文/</id>
+    <published>2015-10-31T23:53:35.000Z</published>
+    <updated>2015-10-31T23:53:36.002Z</updated>
+    <content type="html"><![CDATA[<p>的丰富的分散大发发afdafdafdfaf this is another test。 试试中文的显示效果？？？！！</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>的丰富的分散大发发afdafdafdfaf this is another test。 试试中文的显示效果？？？！！</p>
+]]>
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Test the email]]></title>
