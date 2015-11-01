@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.zhaoyf.net/"/>
-  <updated>2015-10-31T23:53:36.002Z</updated>
+  <updated>2015-11-01T10:49:20.935Z</updated>
   <id>http://www.zhaoyf.net/</id>
   
   <author>
@@ -13,6 +13,21 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[test comment]]></title>
+    <link href="http://www.zhaoyf.net/2015/11/01/test-comment/"/>
+    <id>http://www.zhaoyf.net/2015/11/01/test-comment/</id>
+    <published>2015-11-01T10:49:20.000Z</published>
+    <updated>2015-11-01T10:49:20.935Z</updated>
+    <content type="html"><![CDATA[<p>Today is sunday, there tis</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Today is sunday, there tis</p>
+]]>
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[试试中中文]]></title>
