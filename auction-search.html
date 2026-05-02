@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auction Artist Finder</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f7f7f7; color: #222; }
+    .container { max-width: 900px; margin: 40px auto; background: #fff; padding: 24px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,.08); }
+    h1 { margin-top: 0; }
+    form { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+    input { flex: 1; min-width: 240px; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; }
+    button { padding: 12px 18px; border: 0; border-radius: 8px; background: #111; color: #fff; cursor: pointer; }
+    button:disabled { opacity: .6; cursor: not-allowed; }
+    .status { margin: 10px 0 16px; color: #555; }
+    .results { display: grid; gap: 14px; }
+    .card { border: 1px solid #e5e5e5; border-radius: 10px; padding: 14px; }
+    .card h3 { margin: 0 0 8px; }
+    .card p { margin: 6px 0; line-height: 1.45; }
+    .muted { color: #666; }
+    .small { font-size: 13px; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>Upcoming Auction Artist Finder</h1>
+    <p class="muted">Enter an artist name to scan upcoming auction pages from Sotheby’s and Christie’s.</p>
+
+    <form id="searchForm">
+      <input id="artistInput" type="text" placeholder="e.g., Pablo Picasso" required>
+      <button id="searchBtn" type="submit">Search</button>
+    </form>
+
+    <div id="status" class="status"></div>
+    <section id="results" class="results"></section>
+
+    <p class="small muted">Note: Results are extracted from publicly available auction-calendar pages and may not include every lot listing.</p>
+  </main>
+
+  <script>
+    const sources = [
+      {
+        house: "Sotheby's",
+        page: 'https://www.sothebys.com/en/buy/auction',
+        fetchUrl: 'https://r.jina.ai/http://https://www.sothebys.com/en/buy/auction'
+      },
+      {
+        house: "Christie's",
+        page: 'https://www.christies.com/en/calendar',
+        fetchUrl: 'https://r.jina.ai/http://https://www.christies.com/en/calendar'
+      }
+    ];
+
+    const form = document.getElementById('searchForm');
+    const input = document.getElementById('artistInput');
+    const statusEl = document.getElementById('status');
+    const resultsEl = document.getElementById('results');
+    const searchBtn = document.getElementById('searchBtn');
+
+    function escapeRegExp(text) {
+      return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function extractMatches(text, artist) {
+      const artistPattern = new RegExp(`.{0,120}${escapeRegExp(artist)}.{0,120}`, 'gi');
+      const matches = text.match(artistPattern) || [];
+
+      return [...new Set(matches.map(m => m.replace(/\s+/g, ' ').trim()))]
+        .slice(0, 8);
+    }
+
+    function renderResult({ house, page, snippets, error }) {
+      const card = document.createElement('article');
+      card.className = 'card';
+
+      if (error) {
+        card.innerHTML = `
+          <h3>${house}</h3>
+          <p class="muted">Could not fetch data right now.</p>
+          <p class="small">${error}</p>
+          <p class="small"><a href="${page}" target="_blank" rel="noopener">Open source page</a></p>
+        `;
+        return card;
+      }
+
+      if (!snippets.length) {
+        card.innerHTML = `
+          <h3>${house}</h3>
+          <p>No direct match found for this artist in the current upcoming-auction page text.</p>
+          <p class="small"><a href="${page}" target="_blank" rel="noopener">Check source page manually</a></p>
+        `;
+        return card;
+      }
+
+      card.innerHTML = `
+        <h3>${house}</h3>
+        <p><a href="${page}" target="_blank" rel="noopener">Upcoming auctions page</a></p>
+        ${snippets.map(s => `<p>• ${s}</p>`).join('')}
+      `;
+      return card;
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const artist = input.value.trim();
+      if (!artist) return;
+
+      resultsEl.innerHTML = '';
+      statusEl.textContent = `Searching for "${artist}"...`;
+      searchBtn.disabled = true;
+
+      const jobs = sources.map(async (source) => {
+        try {
+          const response = await fetch(source.fetchUrl);
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const text = await response.text();
+          const snippets = extractMatches(text, artist);
+          return { ...source, snippets };
+        } catch (error) {
+          return { ...source, snippets: [], error: error.message };
+        }
+      });
+
+      const allResults = await Promise.all(jobs);
+      allResults.forEach((r) => resultsEl.appendChild(renderResult(r)));
+
+      const totalMatches = allResults.reduce((sum, r) => sum + (r.snippets?.length || 0), 0);
+      statusEl.textContent = totalMatches
+        ? `Done. Found ${totalMatches} matching text snippet(s).`
+        : 'Done. No direct matches found in the fetched calendar text.';
+
+      searchBtn.disabled = false;
+    });
+  </script>
+</body>
+</html>
